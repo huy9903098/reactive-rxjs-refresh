@@ -33,6 +33,7 @@ import { CourseComponent } from './course/course.component';
 import { CourseCardListComponent } from './course-card-list/course-card-list.component';
 import { LoadingComponent } from './loading/loading.component';
 import { LoadingService } from './loading/loading.service';
+import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LoadingService } from './loading/loading.service';
     CourseComponent,
     CourseCardListComponent,
     LoadingComponent,
+    CourseDialogComponent,
   ],
   imports: [
     BrowserModule,

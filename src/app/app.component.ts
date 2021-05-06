@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [LoadingService],
+  providers: [],
 })
 export class AppComponent {
   title = 'myapp';
