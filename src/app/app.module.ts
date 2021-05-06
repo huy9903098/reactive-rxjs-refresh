@@ -26,12 +26,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
-import { CoursesComponent } from './courses/courses.component';
+
 import { SearchLessonsComponent } from './search-lessons/search-lessons.component';
 import { LoginComponent } from './login/login.component';
+import { CourseComponent } from './course/course.component';
+import { CourseCardListComponent } from './course-card-list/course-card-list.component';
+import { LoadingComponent } from './loading/loading.component';
+import { LoadingService } from './loading/loading.service';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, AboutComponent, CoursesComponent, SearchLessonsComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+    SearchLessonsComponent,
+    LoginComponent,
+    CourseComponent,
+    CourseCardListComponent,
+    LoadingComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -56,7 +69,7 @@ import { LoginComponent } from './login/login.component';
     MatMomentDateModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [LoadingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
