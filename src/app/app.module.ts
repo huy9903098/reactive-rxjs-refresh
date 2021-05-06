@@ -1,3 +1,4 @@
+import { MessagesService } from './messages/messages.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -34,6 +35,7 @@ import { CourseCardListComponent } from './course-card-list/course-card-list.com
 import { LoadingComponent } from './loading/loading.component';
 import { LoadingService } from './loading/loading.service';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { CourseDialogComponent } from './course-dialog/course-dialog.component';
     CourseCardListComponent,
     LoadingComponent,
     CourseDialogComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,7 @@ import { CourseDialogComponent } from './course-dialog/course-dialog.component';
     MatMomentDateModule,
     ReactiveFormsModule,
   ],
-  providers: [LoadingService],
+  providers: [LoadingService, MessagesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

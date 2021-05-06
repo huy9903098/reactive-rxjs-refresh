@@ -4,6 +4,7 @@ import { Course, sortCoursesBySeqNo } from '../model/course';
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../loading/loading.service';
+import { MessagesService } from '../messages/messages.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,11 @@ export class CoursesStore {
 
   courses$: Observable<Course[]> = this.subject.asObservable();
 
-  constructor(private http: HttpClient, private loading: LoadingService) {
+  constructor(
+    private http: HttpClient,
+    private loading: LoadingService,
+    private messages: MessagesService
+  ) {
     this.loadAllCourses();
   }
 
@@ -22,6 +27,7 @@ export class CoursesStore {
       map((response) => response['payload']),
       catchError((err) => {
         const message = 'Could not load courses';
+        this.messages.showErrors(message);
         console.log(message, err);
         return throwError(err);
       }),
@@ -51,6 +57,7 @@ export class CoursesStore {
       catchError((err) => {
         const message = 'Could not save course';
         console.log(message, err);
+        this.messages.showErrors(message);
         return throwError(err);
       }),
       shareReplay()

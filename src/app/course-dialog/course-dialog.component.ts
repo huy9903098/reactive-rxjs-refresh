@@ -8,12 +8,13 @@ import { LoadingService } from '../loading/loading.service';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CoursesStore } from '../service/courses.store';
+import { MessagesService } from '../messages/messages.service';
 
 @Component({
   selector: 'course-dialog',
   templateUrl: './course-dialog.component.html',
   styleUrls: ['./course-dialog.component.scss'],
-  providers: [LoadingService],
+  providers: [LoadingService, MessagesService],
 })
 export class CourseDialogComponent {
   form: FormGroup;
@@ -25,8 +26,7 @@ export class CourseDialogComponent {
     private dialogRef: MatDialogRef<CourseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) course: Course,
     private coursesStore: CoursesStore,
-    private CoursesService: CoursesService,
-    private LoadingService: LoadingService
+    private messagesService: MessagesService
   ) {
     this.course = course;
 
@@ -41,13 +41,9 @@ export class CourseDialogComponent {
   save() {
     const changes = this.form.value;
 
-    // this.coursesStore.saveCourse(this.course.id, changes).subscribe();
-    const saveCourse$ = this.CoursesService.saveCourse(this.course.id, changes);
-    this.LoadingService.showLoaderUntilCompleted(saveCourse$).subscribe(
-      (val) => {
-        this.dialogRef.close(val);
-      }
-    );
+    this.coursesStore.saveCourse(this.course.id, changes).subscribe();
+
+    this.dialogRef.close(changes);
   }
 
   close() {
