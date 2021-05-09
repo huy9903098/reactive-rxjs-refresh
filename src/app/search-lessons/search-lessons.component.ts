@@ -1,15 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Lesson } from '../model/lesson';
+import { CoursesService } from '../service/courses.service';
 
 @Component({
-  selector: 'app-search-lessons',
+  selector: 'course',
   templateUrl: './search-lessons.component.html',
-  styleUrls: ['./search-lessons.component.scss']
+  styleUrls: ['./search-lessons.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchLessonsComponent implements OnInit {
+  searchResults$: Observable<Lesson[]>;
 
-  constructor() { }
+  activeLesson: Lesson;
 
-  ngOnInit(): void {
+  constructor(private coursesService: CoursesService) {}
+
+  ngOnInit() {}
+
+  onSearch(search: string) {
+    this.searchResults$ = this.coursesService.searchLessons(search);
   }
 
+  openLesson(lesson: Lesson) {
+    this.activeLesson = lesson;
+  }
+
+  onBackToSearch() {
+    this.activeLesson = null;
+  }
 }

@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
+import { SafeUrlPipe } from './common/safe-url.pipe';
 
 import { SearchLessonsComponent } from './search-lessons/search-lessons.component';
 import { LoginComponent } from './login/login.component';
@@ -36,6 +37,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { LoadingService } from './loading/loading.service';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 import { MessagesComponent } from './messages/messages.component';
+import { LessonComponent } from './lesson/lesson.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { MessagesComponent } from './messages/messages.component';
     LoadingComponent,
     CourseDialogComponent,
     MessagesComponent,
+    SafeUrlPipe,
+    LessonComponent,
   ],
   imports: [
     BrowserModule,
