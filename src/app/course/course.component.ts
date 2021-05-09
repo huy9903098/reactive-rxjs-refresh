@@ -1,15 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from '../model/course';
+import { startWith, tap, map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { Lesson } from '../model/lesson';
+import { CoursesService } from '../service/courses.service';
+
+interface CourseData {
+  course: Course;
+  lessons: Lesson[];
+}
 
 @Component({
-  selector: 'app-course',
+  selector: 'course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.scss']
+  styleUrls: ['./course.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseComponent implements OnInit {
+  data$: Observable<CourseData>;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private coursesService: CoursesService
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    const courseId = parseInt(this.route.snapshot.paramMap.get('courseId'));
+
+    const course$ = this.coursesService
+      .loadCourseById(courseId)
+      .pipe(startWith(null));
+
+    const lessons$ = this.coursesService
+      .loadAllCourseLessons(courseId)
+      .pipe(startWith([]));
+
+    // combineLatest will wait request data from both course$ and lessons$ so we need to have initial value before get data from observable
+    this.data$ = combineLatest([course$, lessons$]).pipe(
+      map(([course, lessons]) => {
+        return {
+          course,
+          lessons,
+        };
+      }),
+      tap(console.log)
+    );
   }
-
 }
